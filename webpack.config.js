@@ -8,18 +8,32 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
+        test: /\.js[x]?/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env'],
+            plugins: ["@babel/plugin-proposal-class-properties"]
+          }
         }
+      },
+      // {
+      //   test: /\.(scss|css)$/,
+      //   loaders: ['style-loader', 'css-loader'],
+      // },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        loaders: ['file-loader'], 
       }
     ]
   },
-  stats: {
-    colors: true
+  node: {
+    fs: 'empty'
   },
-  devtool: 'source-map'
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
 };
