@@ -23,11 +23,22 @@ class Map extends Component {
 
     const calcAndDisplayRoute = (directionsService) => {
       directionsService.route({
-        origin: 'Los Angeles',
-        destination: 'Santa Barbara',
+        origin: 'Alhambra, CA',
+        destination: 'Santa Barbara, CA',
+        waypoints: [
+          {
+            location: 'Los Angeles, CA',
+            stopover: true
+          },
+          {
+            location: 'Santa Monica, CA',
+            stopover: true
+          }
+        ],
         travelMode: google.maps.TravelMode.DRIVING
       }, (res, status) => {
         if (status === 'OK') {
+          console.log(res)
           this.setState({ directions: res });
         } else {
           console.error('didnt work', res, status)
