@@ -8,6 +8,6 @@ const sequelize = new Sequelize('ikinerary', process.env.USERNAME || 'root', pro
 sequelize
   .authenticate()
   .then(() => console.log('MySQL db "ikinerary" connected successfully'))
-  .catch((err) => 'Error connection to db "ikinerary": ', err);
+  .catch(err => 'Error connection to db "ikinerary": ' + err);
 
 export default sequelize;

@@ -15,7 +15,7 @@ const Trip = sequelize.define('trips', {
     defaultValue: false
   },
   start_date: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATE, //yyyy-mm-dd
     allowNull: false
   },
   end_date: {
@@ -28,25 +28,27 @@ const Trip = sequelize.define('trips', {
   },
   route_socket_id: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
   },
   comment_socket_id: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
 });
 
-const Route = sequelize.define('routes', {
-  stops: {
-    type: Sequelize.ARRAY,
-    defaultValue: []
-  },
-  trip_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  }
-});
+// const Route = sequelize.define('routes', {
+//   stops: {
+//     type: Sequelize.ARRAY,
+//     defaultValue: []
+//   },
+//   trip_id: {
+//     type: Sequelize.INTEGER,
+//     allowNull: false
+//   }
+// });
 
-Route.belongsTo(Trip, { foreignKey: 'trip_id' });
+// Route.belongsTo(Trip, { foreignKey: 'trip_id' });
 
-export { Trip, Route };
+Trip.sync();
+
+export default Trip;

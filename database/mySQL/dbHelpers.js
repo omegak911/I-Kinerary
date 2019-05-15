@@ -1,4 +1,4 @@
-import { Trip, Route } from './models';
+import Trip from './models';
 
 const createTripHelper = (
   { 
@@ -25,10 +25,4 @@ const createTripHelper = (
 const getTripHelper = ({ id }) =>
   Trip.findOne({ where: { id }});
 
-const upsertRouteHelper = ({ stops, trip_id }) =>
-  Route.upsert({ stops, trip_id }); //update or create?
-
-const getRouteHelper = ({ id }) =>
-  Route.findOne({ where: { id }});
-
-export { createTripHelper, getTripHelper, upsertRouteHelper, getRouteHelper };
+export { createTripHelper, getTripHelper };
