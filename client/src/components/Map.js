@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
+import axios from 'axios';
 
 class Map extends Component {
   constructor(props) {
@@ -9,43 +10,43 @@ class Map extends Component {
         lat: 34.0522,
         lng: -118.2437
       },
-      lineCoordinates: null,
-      directions: null
+      directions: null,
+      request: null //we're not using this yet
     }
   }
 
   componentDidMount() {
-    this.handleMapLoad();
+    this.getRouteData();
   }
 
-  handleMapLoad = () => {
+  getRouteData = () => {
+    axios
+      .get(`/api/trip?id=${1}`)
+      .then(({ data }) => {
+        let { route } = data;
+        delete route._id;
+        delete route.trip_id;
+        delete route.__v;
+        route.waypoints = route.waypoints.map(stop => {
+          let { location, stopover } = stop;
+          return { location, stopover };
+        })
+
+        this.handleMapLoad(route);
+      })
+  }
+
+  handleMapLoad = (request) => {
     const directionsService = new google.maps.DirectionsService();
 
-    const calcAndDisplayRoute = (directionsService) => {
-      directionsService.route({
-        origin: 'Alhambra, CA',
-        destination: 'Santa Barbara, CA',
-        waypoints: [
-          {
-            location: 'Los Angeles, CA',
-            stopover: true
-          },
-          {
-            location: 'Santa Monica, CA',
-            stopover: true
-          }
-        ],
-        travelMode: google.maps.TravelMode.DRIVING
-      }, (res, status) => {
-        if (status === 'OK') {
-          console.log(res)
-          this.setState({ directions: res });
-        } else {
-          console.error('didnt work', res, status)
-        }
-      })
-    }
-    calcAndDisplayRoute(directionsService);
+    directionsService.route(request, (res, status) => {
+      if (status === 'OK') {
+        console.log(res);
+        this.setState({ directions: res });
+      } else {
+        console.error('didnt work', res, status)
+      }
+    })
   }
 
 
