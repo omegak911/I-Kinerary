@@ -8,13 +8,17 @@
   "scripts": {
     "start": "nodemon server/bin/entry.js --ignore 'client/'",
     "build": "webpack -w",
-    "seed": "node database/bin/seed-entry.js",
-    "create": "node database/bin/create-entry.js"
+    "seed:mysql": "node database/mySQL/bin/seed-entry.js",
+    "create:mysql": "node database/mySQL/bin/create-entry.js",
+    "seed:mongo": "node database/mongoDB/bin/seed-entry.js",
+    "create:mongo": "node database/mongoDB/bin/create-entry.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "express": "^4.16.4",
+    "mongoose": "^5.5.8",
     "mysql": "^2.17.1",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
@@ -29,6 +33,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
     "babel-loader": "^8.0.6",
+    "dotenv": "^8.0.0",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.0",
     "webpack": "^4.31.0",
