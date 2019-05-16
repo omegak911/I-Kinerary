@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Map from './Map';
+import TripParentComponent from './Trip/TripParentComponent';
 
 class App extends Component {
   render() {
     return (
       <div>
         Hello from App
-        <Map />
+        <TripParentComponent />
       </div>
     )
   }
