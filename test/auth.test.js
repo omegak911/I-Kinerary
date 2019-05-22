@@ -5,10 +5,14 @@ import { Trip, User, UserTrip } from '../database/mySQL/models/joinTable';
 import sql_connection from '../database/mySQL/index';
 import supertest from 'supertest';
 
+import { createTripHelper } from '../database/mySQL/helpers/tripHelper';
+import { createUserTripHelper } from '../database/mySQL/helpers/joinHelpers';
+
 // router.route('/auth')
 //   .get(getUser)
 //   .post(createUser);
 
+let userId;
 beforeAll( async () => {
   await sql_connection.sync({ force: true });
 });
@@ -30,10 +34,30 @@ describe('Serverside Auth: ', () => {
   });
 
   test(`should be able to get a newly created user`, async () => {
-    const { body, status } = await supertest(app).get(`/api/auth?username=Master Jest`)
+    const { body, status } = await supertest(app).get(`/api/auth?username=Master Jest`);
+    userId = body.id;
     expect(status).toEqual(200);
     expect(body.username).toEqual('Master Jest');
     expect(body.trips.length).toEqual(0);
+  });
+
+  test(`should be able to get a created user with trip information`, async () => {
+    let mockData = {
+      title: 'test 1',
+      description: 'test 1',
+      start_date: '2019-05-21',
+      end_date: '2019-05-21'
+    }
+    
+    let trip = await createTripHelper(mockData);
+    await createUserTripHelper(userId, trip.id);
+    const { body, status } = await supertest(app).get(`/api/auth?username=Master Jest`);
+    let { id, title, stars } = body.trips[0];
+
+    expect(status).toEqual(200);
+    expect(id).toEqual(1);
+    expect(title).toEqual('test 1');
+    expect(stars).toEqual(0);
   });
 
 });
