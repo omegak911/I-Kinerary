@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+require('dotenv').config();
 
 const sequelize = new Sequelize('ikinerary', process.env.USERNAME || 'root', process.env.PASSWORD || '', {
   host: process.env.DB_URL || 'localhost',

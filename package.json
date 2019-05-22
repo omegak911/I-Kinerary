@@ -8,10 +8,11 @@
   "scripts": {
     "start": "nodemon server/bin/entry.js --ignore 'client/'",
     "build": "webpack -w",
-    "seed:mysql": "node database/mySQL/bin/seed-entry.js",
     "create:mysql": "node database/mySQL/bin/create-entry.js",
+    "seed:mysql": "node database/mySQL/bin/seed-entry.js",
+    "create:mongo": "node database/mongoDB/bin/create-entry.js",
     "seed:mongo": "node database/mongoDB/bin/seed-entry.js",
-    "create:mongo": "node database/mongoDB/bin/create-entry.js"
+    "test": "NODE_ENV=jest jest --detectOpenHandles --verbose=false --forceExit "
   },
   "dependencies": {
     "@babel/core": "^7.4.4",
@@ -34,8 +35,10 @@
     "@babel/register": "^7.4.4",
     "babel-loader": "^8.0.6",
     "dotenv": "^8.0.0",
+    "jest": "^24.8.0",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.0",
+    "supertest": "^4.0.2",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2"
   },
