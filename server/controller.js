@@ -16,22 +16,13 @@ const createUser = (req, res) => {
 
 const getUser = (req, res) => {
   getUserHelper(req.query)
-    .then(user => res.status(200).send(user)) //sends back user with trips data
+    .then(user => res.status(200).send(user)) //sends back user with all trips data
     .catch(err => errorHandler(err,res))
 }
 
-const getTrip = (req, res) => {
+const getTrip = (req, res) => { //gets one trip data along with routes
   getTripHelper(req.query)
-    .then(trip => {
-      res.status(200).send(trip);
-      
-      // let { id } = req.query;
-      // getRouteHelper(id) //need to consider if there are no routes
-      //   .then(route => {
-      //     res.status(200).send({ trip, route });
-      //   })
-      //   .catch(err => errorHandler(err,res));
-    })
+    .then(trip => res.status(200).send(trip))
     .catch(err => errorHandler(err,res));
 }
 

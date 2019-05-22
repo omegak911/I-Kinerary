@@ -1,20 +1,16 @@
 import '@babel/polyfill';
 import app from '../server/index';
 
-import { Trip, User, UserTrip } from '../database/mySQL/models/joinTable';
+import { Trip, User } from '../database/mySQL/models/joinTable';
 import sql_connection from '../database/mySQL/index';
 import supertest from 'supertest';
 
 import { createTripHelper } from '../database/mySQL/helpers/tripHelper';
 import { createUserTripHelper } from '../database/mySQL/helpers/joinHelpers';
 
-// router.route('/auth')
-//   .get(getUser)
-//   .post(createUser);
-
 let userId;
 beforeAll( async () => {
-  await sql_connection.sync({ force: true });
+  await sql_connection.sync({ force: true });  //clean out db to ensure accurate testing
 });
 
 afterAll( async () => {
