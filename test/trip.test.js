@@ -23,22 +23,6 @@ beforeAll( async () => {
       username: 'Master Jest Trip'
     }
   );
-
-  // await Trip.create(
-  //   { 
-      // title: 'Jest Trip 1', 
-      // description: 'Jest Trip 1 description',
-      // start_date: '2019-05-15', 
-      // end_date: '2019-05-15'
-  //   }
-  // );
-
-  // await UserTrip.create(
-  //   {
-  //     userId: 1,
-  //     tripId: 1
-  //   }
-  // );
 });
 
 afterAll( async () => {
@@ -71,11 +55,33 @@ describe('Serverside Trip/Routes: ', () => {
     expect(title).toEqual('Jest Trip 1');
   });
 
-  xtest('GET to trip route should provide one trip data with all the related Route data', async () => {
-    
+  test(`POST to route should add a route to a trip`, async () => {
+    await supertest(app)
+      .post(`/api/route`)
+      .send({
+        trip_id: 1, 
+        destination: 'Santa Barbara, CA', 
+        origin: 'Alhambra, CA',
+        travelMode: 'DRIVING', 
+        waypoints: [
+          { 
+            location: 'Los Angeles, CA', 
+            stopover: true 
+          },
+          {
+            location: 'Santa Monica, CA', 
+            stopover: true
+          }
+        ]
+      });
+
+    let { trip_id, origin, waypoints } = await Route.findOne({ trip_id: 1 });
+    expect(trip_id).toEqual(1);
+    expect(origin).toEqual('Alhambra, CA');
+    expect(waypoints[0].location).toEqual('Los Angeles, CA');
   });
 
-  xtest('it should add a new team to the DB', async () => {
+  xtest(`GET to route should provide a trip's Route data`, async () => {
     console.log(3)
     // const { status } = await supertest(app).post('/search-api/team').send({ teamname: 'jestTeam' });
     // expect(status).toEqual(201);
