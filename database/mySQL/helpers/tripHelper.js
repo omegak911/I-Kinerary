@@ -22,7 +22,4 @@ const createTripHelper = (
       }
     );
 
-const getTripHelper = ({ id }) =>
-  Trip.findOne({ where: { id }});
-
-export { createTripHelper, getTripHelper };
+export default createTripHelper;

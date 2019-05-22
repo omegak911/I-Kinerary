@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTrip, getTrip, updateOrCreateRoute, createUser, getUser } from './controller';
+import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, getRoutes } from './controller';
 
 const router = express.Router();
 
@@ -8,10 +8,10 @@ router.route('/auth')
   .post(createUser);
 
 router.route('/trip')
-  .get(getTrip)
   .post(createTrip)
 
 router.route('/route')
+  .get(getRoute)
   .post(updateOrCreateRoute)
   .patch(updateOrCreateRoute) //Have not tested this
 

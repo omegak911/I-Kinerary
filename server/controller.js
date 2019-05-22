@@ -1,5 +1,5 @@
 import { createRouteHelper, getRouteHelper } from '../database/mongoDB/dbHelpers';
-import { createTripHelper, getTripHelper } from '../database/mySQL/helpers/tripHelper';
+import createTripHelper from '../database/mySQL/helpers/tripHelper';
 import { createUserHelper, getUserHelper } from '../database/mySQL/helpers/userHelper';
 import { createUserTripHelper } from '../database/mySQL/helpers/joinHelpers';
 
@@ -20,16 +20,16 @@ const getUser = (req, res) => {
     .catch(err => errorHandler(err,res))
 }
 
-const getTrip = (req, res) => { //gets one trip data along with routes
-  getTripHelper(req.query)
-    .then(trip => res.status(200).send(trip))
+const getRoute = (req, res) => { //gets one trip data along with routes
+  getRouteHelper(req.query)
+    .then(route => res.status(200).send(route))
     .catch(err => errorHandler(err,res));
 }
 
 const createTrip = (req, res) => {
   let userId;
-  getUserHelper(req.body) //username
-    .then(user => userId = user.dataValues.id)
+  getUserHelper(req.body) //username  //this will eventually be removed once we have sessions hold the Id
+    .then(user => userId = user.dataValues.id) //this will eventually be removed once we have sessions hold the Id
     .then(async () => await createTripHelper(req.body))
     .then(async (trip) => await createUserTripHelper(userId, trip.dataValues.id))
     .then(() => res.status(201).send('success'))
@@ -42,4 +42,4 @@ const updateOrCreateRoute = (req, res) => {
     .catch(err => errorHandler(err,res));
 }
 
-export { createTrip, getTrip, updateOrCreateRoute, createUser, getUser };
+export { createTrip, getRoute, updateOrCreateRoute, createUser, getUser };

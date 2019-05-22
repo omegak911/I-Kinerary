@@ -5,7 +5,7 @@ import { Trip, User } from '../database/mySQL/models/joinTable';
 import sql_connection from '../database/mySQL/index';
 import supertest from 'supertest';
 
-import { createTripHelper } from '../database/mySQL/helpers/tripHelper';
+import createTripHelper from '../database/mySQL/helpers/tripHelper';
 import { createUserTripHelper } from '../database/mySQL/helpers/joinHelpers';
 
 let userId;
