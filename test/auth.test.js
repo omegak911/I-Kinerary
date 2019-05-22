@@ -29,4 +29,11 @@ describe('Serverside Auth: ', () => {
     expect(dataValues.username).toEqual('Master Jest');
   });
 
+  test(`should be able to get a newly created user`, async () => {
+    const { body, status } = await supertest(app).get(`/api/auth?username=Master Jest`)
+    expect(status).toEqual(200);
+    expect(body.username).toEqual('Master Jest');
+    expect(body.trips.length).toEqual(0);
+  });
+
 });
