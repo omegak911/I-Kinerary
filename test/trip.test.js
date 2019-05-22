@@ -71,6 +71,30 @@ describe('Serverside Trip/Routes: ', () => {
     expect(waypoints[0].location).toEqual('Los Angeles, CA');
   });
 
+  test(`PATCH to route should update a route to a trip + only the specfied params`, async () => {
+    await supertest(app)
+      .patch(`/api/route`)
+      .send({
+        trip_id: 1, 
+        options: {
+          origin: 'Los Angeles, CA',
+          waypoints: [
+            {
+              location: 'Santa Monica, CA', 
+              stopover: true
+            }
+          ]
+        }
+      });
+
+    let { trip_id, origin, destination, waypoints } = await Route.findOne({ trip_id: 1 });
+    expect(trip_id).toEqual(1);
+    expect(origin).toEqual('Los Angeles, CA');
+    expect(destination).toEqual('Santa Barbara, CA');
+    expect(waypoints[0].location).toEqual('Santa Monica, CA');
+    expect(waypoints.length).toEqual(1);
+  });
+
   xtest(`GET to route should provide a trip's Route data`, async () => {
     console.log(3)
     // const { status } = await supertest(app).post('/search-api/team').send({ teamname: 'jestTeam' });
