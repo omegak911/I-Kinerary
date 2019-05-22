@@ -5,6 +5,8 @@ import { Trip, User, UserTrip } from '../database/mySQL/models/joinTable';
 import sql_connection from '../database/mySQL/index';
 import supertest from 'supertest';
 
+import Route from '../database/mongoDB/collections';
+
 //RUN SEED SCRIPT BEFORE TESTING
 
 // .get(getTrip)
@@ -22,21 +24,21 @@ beforeAll( async () => {
     }
   );
 
-  await Trip.create(
-    { 
-      title: 'Jest Trip 1', 
-      description: 'Jest Trip 1 description',
-      start_date: '2019-05-15', 
-      end_date: '2019-05-15'
-    }
-  );
+  // await Trip.create(
+  //   { 
+      // title: 'Jest Trip 1', 
+      // description: 'Jest Trip 1 description',
+      // start_date: '2019-05-15', 
+      // end_date: '2019-05-15'
+  //   }
+  // );
 
-  await UserTrip.create(
-    {
-      userId: 1,
-      tripId: 1
-    }
-  );
+  // await UserTrip.create(
+  //   {
+  //     userId: 1,
+  //     tripId: 1
+  //   }
+  // );
 });
 
 afterAll( async () => {
@@ -45,28 +47,32 @@ afterAll( async () => {
 
 
 
-describe('Serverside Trip: ', () => {
+describe('Serverside Trip/Routes: ', () => {
   //GET trip data along with route data
   //POST Trip then GET trip to confirm it was made
   //POST route then reach into collection to confirm it exists
   //PATCH route then reach into collection to confirm it was updated
 
-  test(`GET to trip route should provide one trip data`, async () => {
-    const { body, status } = await supertest(app).get(`/api/trip?id=1`);//should eventually be from sessions
-    let { id, title, description } = body;
+  test(`POST to trip route should create one trip data + joined with user`, async () => {
+    await supertest(app)
+      .post(`/api/trip`)
+      .send({ 
+        username: 'Master Jest Trip',
+        title: 'Jest Trip 1', 
+        description: 'Jest Trip 1 description',
+        start_date: '2019-05-15', 
+        end_date: '2019-05-15'  
+      });
+    
+    const { body, status } = await supertest(app).get(`/api/auth?username=Master Jest Trip`);
+    let { title } = body.trips[0];
     expect(status).toEqual(200);
-    expect(id).toEqual(1);
+    expect(body.username).toEqual('Master Jest Trip');
     expect(title).toEqual('Jest Trip 1');
-    expect(description).toEqual('Jest Trip 1 description');
   });
 
-  xtest('it should add a new board to the DB', async () => {
-    console.log(2)
-    // const { status } = await supertest(app).post('/search-api/board').send({ title: 'jestBoard' });
-    // expect(status).toEqual(201);
-    // const { body } = await supertest(app).get('/search-api/board?title=jestBoard');
-    // expect(body[0].title).toEqual('jestBoard');
-    // Board.destroy({ where: { title: 'jestBoard' }});
+  xtest('GET to trip route should provide one trip data with all the related Route data', async () => {
+    
   });
 
   xtest('it should add a new team to the DB', async () => {
