@@ -1,14 +1,11 @@
 import Route from './collections';
 
-const createRouteHelper = ({ trip_id, origin, destination, waypoints, travelMode }) =>
+const createRouteHelper = ({ trip_id, options }) =>
   Route.update({ 
     trip_id
-  }, {
-    origin,
-    destination,
-    waypoints,
-    travelMode
-  }, {
+  }, 
+  options, 
+  {
     upsert: true
   })
 
