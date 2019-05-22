@@ -23,6 +23,12 @@ afterAll( async () => {
       username: 'Master Jest'
     }
   });
+
+  await Trip.destroy({ 
+    where: { 
+      title: 'test 1'
+    }
+  });
 });
 
 describe('Serverside Auth: ', () => {
