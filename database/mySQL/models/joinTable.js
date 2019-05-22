@@ -6,8 +6,8 @@ import Trip from './trip';
 
 const UserTrip = sequelize.define('user_trip', {}, { timestamps: false });
 
-Trip.belongsToMany(User, { through: UserTrip, as: 'trip_id'});
-User.belongsToMany(Trip, { through: UserTrip, as: 'user_id'});
+Trip.belongsToMany(User, { through: UserTrip });
+User.belongsToMany(Trip, { through: UserTrip });
 
 if (process.env.NODE_ENV !== 'jest') {
   User.sync();

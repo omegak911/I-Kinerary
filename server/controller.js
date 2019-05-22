@@ -16,11 +16,8 @@ const createUser = (req, res) => {
 
 const getUser = (req, res) => {
   getUserHelper(req.query)
-  .then((user) => { 
-    res.status(200).send(user)
-    //get trips
-  })
-  .catch(err => errorHandler(err,res))
+    .then(user => res.status(200).send(user)) //sends back user with trips data
+    .catch(err => errorHandler(err,res))
 }
 
 const getTrip = (req, res) => {
