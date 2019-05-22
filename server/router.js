@@ -1,7 +1,11 @@
 import express from 'express';
-import { createTrip, getTrip, updateOrCreateRoute } from './controller';
+import { createTrip, getTrip, updateOrCreateRoute, createUser, getUser } from './controller';
 
 const router = express.Router();
+
+router.route('/auth')
+  .get(getUser)
+  .post(createUser);
 
 router.route('/trip')
   .get(getTrip)
