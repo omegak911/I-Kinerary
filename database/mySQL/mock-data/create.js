@@ -10,6 +10,7 @@ const entries = 100;
 const createUsers = () => {
   console.log('starting createUsers')
   let users = '';
+  users += `Omegak911\n`
   for (let i = 0; i < entries; i++) {
     let username = `Mock User #${i}`;
     users += `${username}\n`;
@@ -24,8 +25,8 @@ const createTrips = () => {
   for (let i = 0; i < entries; i++) {
     let title = `Mock Trip #${i}`;
     let description = `Mock Description #${i}`;
-    let start_date = `${i}${i}${i}${i}-${i}${i}-${i}${i}`;
-    let end_date = `${i}${i}${i}${i}-${i}${i}-${i}${i}`;
+    let start_date = `2019-05-22`;
+    let end_date = `2019-05-22`;
     trips += `${title}\t${description}\t${start_date}\t${end_date}\n`;
   }
   tripDir.write(trips);

@@ -9,7 +9,7 @@
     "start": "nodemon server/bin/entry.js --ignore 'client/'",
     "build": "webpack -w",
     "create:mysql": "node database/mySQL/bin/create-entry.js",
-    "seed:mysql": "node database/mySQL/bin/seed-entry.js",
+    "seed:mysql": "NODE_ENV=jest node database/mySQL/bin/seed-entry.js",
     "create:mongo": "node database/mongoDB/bin/create-entry.js",
     "seed:mongo": "node database/mongoDB/bin/seed-entry.js",
     "test": "NODE_ENV=jest jest --detectOpenHandles --verbose=false --forceExit "
