@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, getRoutes } from './controller';
+import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser } from './controller';
 
 const router = express.Router();
 
@@ -13,6 +13,6 @@ router.route('/trip')
 router.route('/route')
   .get(getRoute)
   .post(updateOrCreateRoute)
-  .patch(updateOrCreateRoute) //Have not tested this
+  .patch(updateOrCreateRoute)
 
 export default router;
