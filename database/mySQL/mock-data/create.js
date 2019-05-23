@@ -4,11 +4,11 @@ const relativePath = './database/mySQL/mock-data/csv/';
 
 const userDir = fs.createWriteStream(relativePath + 'users.csv');
 const tripDir = fs.createWriteStream(relativePath + 'trips.csv');
+const userTripDir = fs.createWriteStream(relativePath + 'userTrips.csv');
 
 const entries = 100;
 
 const createUsers = () => {
-  console.log('starting createUsers')
   let users = '';
   users += `Omegak911\n`
   for (let i = 0; i < entries; i++) {
@@ -16,11 +16,9 @@ const createUsers = () => {
     users += `${username}\n`;
   }
   userDir.write(users);
-  console.log('ending createUsers')
-}
+};
 
 const createTrips = () => {
-  console.log('starting createTeams')
   let trips = '';
   for (let i = 0; i < entries; i++) {
     let title = `Mock Trip #${i}`;
@@ -30,12 +28,27 @@ const createTrips = () => {
     trips += `${title}\t${description}\t${start_date}\t${end_date}\n`;
   }
   tripDir.write(trips);
-  console.log('ending createTeams')
+};
+
+const createUserTripAssociations = () => {
+  let userTrips = '';
+  for (let tripId = 1; tripId < entries + 1; tripId++) {
+    let userIdOne = tripId % 10 === 0 ? 1 : Math.floor(Math.random() * entries) + 1;
+    let userIdTwo = Math.floor(Math.random() * entries) + 1;
+    if (userIdOne === userIdTwo) {
+      tripId -= 1;
+    } else {
+      userTrips += `${userIdOne}\t${tripId}\n${userIdTwo}\t${tripId}\n`;
+    }
+  }
+  userTripDir.write(userTrips);
 }
 
 const createSeedData = () => {
   createUsers();
   createTrips();
+  createUserTripAssociations();
+  console.log('create script done');
 }
 
 createSeedData();
