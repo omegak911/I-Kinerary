@@ -5,4 +5,5 @@ yarn-error.log
 temp.js
 .env
 config.js
-csv/
+*.csv
+*.tsv
