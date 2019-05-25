@@ -16,7 +16,13 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this.getRouteData();
+    // this.getRouteData();
+    let { route } = this.props;
+    route.waypoints = route.waypoints.map(stop => {
+      let { location, stopover } = stop;
+      return { location, stopover };
+    })
+    this.handleMapLoad(route);
   }
 
   getRouteData = () => {
@@ -36,10 +42,10 @@ class Map extends Component {
       })
   }
 
-  handleMapLoad = (request) => {
+  handleMapLoad = ({ origin, destination, travelMode, waypoints }) => {
     const directionsService = new google.maps.DirectionsService();
 
-    directionsService.route(request, (res, status) => {
+    directionsService.route({ origin, destination, travelMode, waypoints }, (res, status) => {
       if (status === 'OK') {
         console.log(res);
         this.setState({ directions: res });
