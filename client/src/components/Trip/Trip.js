@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 class Trip extends Component {
   constructor(props){
@@ -10,8 +11,10 @@ class Trip extends Component {
 
   componentDidMount() {
     let { selectedTripId } = this.props;
-
-    //AJAX request to get trip + route data
+    axios
+      .get(`/api/route?trip_id=${selectedTripId}`)
+      .then(({ data }) => console.log(data))
+      .catch(err => console.error(err));
   }
 
   render() {
