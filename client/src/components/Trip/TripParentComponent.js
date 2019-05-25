@@ -20,7 +20,7 @@ class TripParentComponent extends Component {
     let { selectedTripId, view } = this.state;
     return view === 'tripList' ? 
       <TripList
-        handleViewChange={ () => this.handleViewChange('trip') }
+        handleViewChange={ (tripId) => this.handleViewChange('trip', tripId) }
       /> 
       : 
       <Trip
