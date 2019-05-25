@@ -21,7 +21,7 @@ class TripParentComponent extends Component {
     return view === 'tripList' ? 
       <TripList
         handleViewChange={ (tripId) => this.handleViewChange('trip', tripId) }
-      /> 
+      />
       : 
       <Trip
         selectedTripId={ selectedTripId }
