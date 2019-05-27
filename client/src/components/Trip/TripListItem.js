@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ClampLines from 'react-clamp-lines';
+import moment from 'moment';
 
 const TripListItem = ({ trip, handleViewChange }) => {
   let { id, title, description, start_date, end_date, stars } = trip;
@@ -15,9 +16,10 @@ const TripListItem = ({ trip, handleViewChange }) => {
         innerElement="p"
       />
       <div>
-        <span>start: {start_date}</span>
-        <span>end: {end_date}</span>
-        <span>stars: {stars}</span>
+        <div>start: {moment(start_date).format('MMMM Do YYYY')}</div>
+        <div>end: {moment(end_date).format('MMMM Do YYYY')}</div>
+        <div>stars: {stars}</div>
+        
       </div>
     </StyledTripListItem>
   )
