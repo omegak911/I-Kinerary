@@ -5,6 +5,8 @@ import moment from 'moment';
 
 const TripListItem = ({ trip, handleViewChange }) => {
   let { id, title, description, start_date, end_date, stars } = trip;
+  let startDate = moment(start_date).format('MMMM Do YYYY');
+  let endDate = moment(end_date).format('MMMM Do YYYY');
 
   return (
     <StyledTripListItem onClick={() => handleViewChange(id)}>
@@ -16,10 +18,9 @@ const TripListItem = ({ trip, handleViewChange }) => {
         innerElement="p"
       />
       <div>
-        <div>start: {moment(start_date).format('MMMM Do YYYY')}</div>
-        <div>end: {moment(end_date).format('MMMM Do YYYY')}</div>
+        <div>start: {startDate}</div>
+        <div>end: {endDate}</div>
         <div>stars: {stars}</div>
-        
       </div>
     </StyledTripListItem>
   )
@@ -29,6 +30,6 @@ const StyledTripListItem = styled.div`
   border: 1px solid blue;
   margin: 5px;
   padding: 5px;
-`
+`;
 
 export default TripListItem;
