@@ -25,11 +25,12 @@ class Trip extends Component {
 
   renderView = () => {
     let { route, routeLoaded } = this.state;
+
     if (routeLoaded) {
       return (
         <div>
           <StyledTripTop>
-            <RouteContainer />
+            <RouteContainer route={route} />
             <Map route={route} />
           </StyledTripTop>
           <Conversations />

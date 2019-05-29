@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import RouteStops from './RouteStops';
 import Options from './Options';
 
-const RouteContainer = (props) =>
+const RouteContainer = ({ route }) =>
   <StyledRouteContainer>
-    <div>routeStops</div>
+    <RouteStops route={route} />
     <div>Options</div>
   </StyledRouteContainer>;
 
