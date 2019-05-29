@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
 import axios from 'axios';
+import styled from 'styled-components';
 
 class Map extends Component {
   constructor(props) {
@@ -9,14 +10,11 @@ class Map extends Component {
       dummyCenter: {
         lat: 34.0522,
         lng: -118.2437
-      },
-      directions: null,
-      request: null //we're not using this yet
+      }
     }
   }
 
   componentDidMount() {
-    // this.getRouteData();
     let { route } = this.props;
     route.waypoints = route.waypoints.map(stop => {
       let { location, stopover } = stop;
@@ -57,6 +55,7 @@ class Map extends Component {
 
 
   render() {
+    console.log('Map.js rendering')
     let { dummyCenter, directions } = this.state;
     const GoogleMapContainer = withGoogleMap(props => (
       <GoogleMap
@@ -68,14 +67,18 @@ class Map extends Component {
     ))
 
     return (
-      <div>
+      <StyledMapWrapper>
         <GoogleMapContainer 
-          containerElement={ <div style={{ height: '100vh', width: '100%' }}/>}
+          containerElement={ <div style={{ height: '60vh', width: '100%' }}/>}
           mapElement={ <div style={{ height: '100%' }}/>}
         />
-      </div>
+      </StyledMapWrapper>
     )
   }
 }
+
+const StyledMapWrapper = styled.div`
+  width: 70%;
+`;
 
 export default Map;

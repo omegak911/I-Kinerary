@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
 import RouteContainer from './Route/RouteContainer';
 import Map from './Map';
@@ -25,11 +26,15 @@ class Trip extends Component {
   renderView = () => {
     let { route, routeLoaded } = this.state;
     if (routeLoaded) {
-      return (<div>
-        <RouteContainer />
-        <Map route={route} />
-        <Conversations />
-      </div>)
+      return (
+        <div>
+          <StyledTripTop>
+            <RouteContainer />
+            <Map route={route} />
+          </StyledTripTop>
+          <Conversations />
+        </div>
+      )
     } else {
       return <div>Loading...</div>
     }
@@ -39,5 +44,11 @@ class Trip extends Component {
     return this.renderView();
   }
 }
+
+const StyledTripTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+`;
 
 export default Trip;
