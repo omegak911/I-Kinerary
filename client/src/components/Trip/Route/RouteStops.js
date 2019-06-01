@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Droppable } from 'react-beautiful-dnd';
+
 import RouteStopsLocation from './RouteStopsLocation';
 
 class RouteStops extends Component {
@@ -14,13 +17,36 @@ class RouteStops extends Component {
     );
 
     return (
-      <div>
-        <RouteStopsLocation location={origin} index={0} />
-        {mappedWaypoints}
-        <RouteStopsLocation location={destination} index={waypoints.length + 1} />
-        <button>+ on hover add stop</button>
-      </div>
+      <Droppable
+        droppableId={route._id}
+        type="routes"
+      >
+      {(provided, snapshot) => 
+        <StyledRouteStops
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          isDraggingOver={snapshot.isDraggingOver}
+        >
+          <RouteStopsLocation location={origin} index={0} />
+          {mappedWaypoints}
+          <RouteStopsLocation location={destination} index={waypoints.length + 1} />
+          {provided.placeholder}
+          <StyledButton title="add stop">+</StyledButton>
+        </StyledRouteStops>
+      }
+      </Droppable>
     )
   }
 }
+
+const StyledRouteStops = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const StyledButton = styled.button`
+  width: 98%;
+`
+
 export default RouteStops;

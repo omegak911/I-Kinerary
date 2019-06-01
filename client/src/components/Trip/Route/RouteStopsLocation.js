@@ -23,6 +23,7 @@ const RouteStopsLocation = ({ location, index }) =>
 const StyledRouteStopsLocation = styled.div`
   margin: 3px;
   border: 1px solid black;
+  width: 97%;
 `;
 
 export default RouteStopsLocation;
