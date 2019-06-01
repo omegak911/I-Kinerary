@@ -16,7 +16,8 @@ const RouteContainer = ({ route }) =>
       {...provided.droppableProps}
       isDraggingOver={snapshot.isDraggingOver}
     >
-      <RouteStops route={route} placeholder={provided.placeholder}/>
+      <RouteStops route={route} />
+      {provided.placeholder}
       <div>Options</div>
     </StyledRouteContainer>
   }

@@ -7,7 +7,7 @@ class RouteStops extends Component {
   }
 
   render() {
-    let { route, placeholder } = this.props;
+    let { route } = this.props;
     let { destination, origin, waypoints } = route;
     let mappedWaypoints = waypoints.map((waypoint, i) =>
       <RouteStopsLocation key={i} index={i + 1} location={waypoint.location} />
@@ -18,7 +18,6 @@ class RouteStops extends Component {
         <RouteStopsLocation location={origin} index={0} />
         {mappedWaypoints}
         <RouteStopsLocation location={destination} index={waypoints.length + 1} />
-        {placeholder}
         <button>+ on hover add stop</button>
       </div>
     )
