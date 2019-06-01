@@ -21,8 +21,9 @@ const RouteStopsLocation = ({ location, index }) =>
   </Draggable>
 
 const StyledRouteStopsLocation = styled.div`
-  margin: 3px;
   border: 1px solid black;
+  margin: 3px;
+  padding: 3px;
   width: 97%;
 `;
 

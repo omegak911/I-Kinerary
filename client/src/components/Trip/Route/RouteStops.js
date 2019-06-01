@@ -46,6 +46,7 @@ const StyledRouteStops = styled.div`
   align-items: center;
   overflow: scroll;
   height: 95%;
+  max-height: 350px;
 `;
 
 export default RouteStops;
