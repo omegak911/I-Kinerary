@@ -26,9 +26,35 @@ class Trip extends Component {
 
   onDragEnd = (result) => {
     let { destination, source } = result;
-    console.log('reorder origin/destination/waypoints as needed')
-    console.log('D: ', destination)
-    console.log('S: ', source)
+
+    if (!destination || destination.index === source.index) return;
+    
+    let route = { ...this.state.route };
+    let routeArr = [route.origin]
+
+    for (let stop of route.waypoints) {
+      routeArr.push(stop.location);
+    }
+    routeArr.push(route.destination);
+
+    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1));
+
+    let from = routeArr[0];
+    let waypoints = [];
+    let to = routeArr[routeArr.length - 1];
+
+    for (let i = 1; i < routeArr.length - 1; i++) {
+      waypoints.push({
+        location: routeArr[i],
+        stopover: true
+      });
+    }
+
+    route.origin = from;
+    route.waypoints = waypoints;
+    route.destination = to;
+
+    this.setState({ route });
   }
 
   renderView = () => {
