@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import RouteContainer from './Route/RouteContainer';
 import Map from './Map';
@@ -23,18 +24,29 @@ class Trip extends Component {
       .catch(err => console.error(err));
   }
 
+  onDragEnd = (result) => {
+    let { destination, source } = result;
+    console.log('reorder origin/destination/waypoints as needed')
+    console.log('D: ', destination)
+    console.log('S: ', source)
+  }
+
   renderView = () => {
     let { route, routeLoaded } = this.state;
 
     if (routeLoaded) {
       return (
-        <div>
-          <StyledTripTop>
-            <RouteContainer route={route} />
-            <Map route={route} />
-          </StyledTripTop>
-          <Conversations />
-        </div>
+        <DragDropContext
+          onDragEnd={this.onDragEnd}
+        >
+          <div>
+            <StyledTripTop>
+              <RouteContainer route={route} />
+              <Map route={route} />
+            </StyledTripTop>
+            <Conversations />
+          </div>
+        </DragDropContext>
       )
     } else {
       return <div>Loading...</div>

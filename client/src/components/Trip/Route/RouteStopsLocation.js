@@ -1,15 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Draggable } from 'react-beautiful-dnd';
 
-const RouteStopsLocation = ({ location }) =>
-  <StyledRouteStopsLocation>
-    {location}
-    {/* if delete triggered, will show button to delete */}
-
-    {/* this would get pushed to be smaller 
-      location name
-      - maybe details */}
-  </StyledRouteStopsLocation>;
+const RouteStopsLocation = ({ location, index }) =>
+  <Draggable
+    draggableId={`location.${index}`}
+    index={index}
+  >
+    {(provided, snapshot) =>
+      <StyledRouteStopsLocation
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={provided.innerRef}
+        isDragging={snapshot.isDragging}
+        draggingOver={snapshot.draggingOver}
+      >
+      {location}
+      </StyledRouteStopsLocation>
+    }
+  </Draggable>
 
 const StyledRouteStopsLocation = styled.div`
   margin: 3px;
