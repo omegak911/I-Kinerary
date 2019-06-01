@@ -24,21 +24,18 @@ class Trip extends Component {
       .catch(err => console.error(err));
   }
 
-  onDragEnd = (result) => {
-    let { destination, source } = result;
+  convertRouteObjectToArray = (routeObj) => {
+    let routeArr = [routeObj.origin]
 
-    if (!destination || destination.index === source.index) return;
-    
-    let route = { ...this.state.route };
-    let routeArr = [route.origin]
-
-    for (let stop of route.waypoints) {
+    for (let stop of routeObj.waypoints) {
       routeArr.push(stop.location);
     }
-    routeArr.push(route.destination);
+    routeArr.push(routeObj.destination);
 
-    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1));
+    return routeArr;
+  }
 
+  seedArrayToRouteObject = (routeArr, routeObj) => {
     let from = routeArr[0];
     let waypoints = [];
     let to = routeArr[routeArr.length - 1];
@@ -50,9 +47,23 @@ class Trip extends Component {
       });
     }
 
-    route.origin = from;
-    route.waypoints = waypoints;
-    route.destination = to;
+    routeObj.origin = from;
+    routeObj.waypoints = waypoints;
+    routeObj.destination = to;
+
+    return routeObj;
+  }
+
+  onDragEnd = (result) => {
+    let { destination, source } = result;
+
+    if (!destination || destination.index === source.index) return;
+    
+    let route = { ...this.state.route };
+    let routeArr = this.convertRouteObjectToArray(route);
+    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1));
+
+    route = this.seedArrayToRouteObject(routeArr, route);
 
     this.setState({ route });
   }
