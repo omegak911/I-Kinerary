@@ -45,17 +45,15 @@ class Map extends Component {
 
     directionsService.route({ origin, destination, travelMode, waypoints }, (res, status) => {
       if (status === 'OK') {
-        console.log(res);
         this.setState({ directions: res });
       } else {
+        //we could setState some error to be displayed
         console.error('didnt work', res, status)
       }
     })
   }
 
-
   render() {
-    console.log('Map.js rendering')
     let { dummyCenter, directions } = this.state;
     const GoogleMapContainer = withGoogleMap(props => (
       <GoogleMap

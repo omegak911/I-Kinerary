@@ -12,7 +12,8 @@ class Trip extends Component {
     super(props);
     this.state = {
       route: null,
-      routeLoaded: false
+      routeLoaded: false,
+      showMap: true
     }
   }
 
@@ -61,15 +62,17 @@ class Trip extends Component {
     
     let route = { ...this.state.route };
     let routeArr = this.convertRouteObjectToArray(route);
-    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1));
-
+    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1)[0]);
     route = this.seedArrayToRouteObject(routeArr, route);
 
-    this.setState({ route });
+    this.setState({ showMap: false }, () => {
+      this.setState({ route, showMap: true });
+    })
   }
 
   renderView = () => {
-    let { route, routeLoaded } = this.state;
+    let { route, routeLoaded, showMap } = this.state;
+    let map = showMap ? <Map route={route} /> : <div>Map Loading...</div>
 
     if (routeLoaded) {
       return (
@@ -79,7 +82,7 @@ class Trip extends Component {
           <div>
             <StyledTripTop>
               <RouteContainer route={route} />
-              <Map route={route} />
+              {map}
             </StyledTripTop>
             <Conversations />
           </div>
