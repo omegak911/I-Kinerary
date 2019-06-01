@@ -5,7 +5,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import RouteStops from './RouteStops';
 import Options from './Options';
 
-const RouteContainer = ({ route }) =>
+const RouteContainer = ({ route }) => 
   <Droppable
     droppableId={route._id}
     type="routes"
