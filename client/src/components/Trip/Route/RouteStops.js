@@ -15,7 +15,7 @@ class RouteStops extends Component {
     let { destination, origin, waypoints } = route;
     let mappedWaypoints = waypoints.map((waypoint, i) =>
       <RouteStopsLocation 
-        key={i} index={i + 1}
+        key={i + 1} index={i + 1}
         location={waypoint.location}
         removeStop={removeStop}
       />
@@ -33,6 +33,7 @@ class RouteStops extends Component {
           isDraggingOver={snapshot.isDraggingOver}
         >
           <RouteStopsLocation
+            key={0}
             index={0}
             location={origin}
             removeStop={removeStop}
@@ -41,6 +42,7 @@ class RouteStops extends Component {
           {mappedWaypoints}
 
           <RouteStopsLocation
+            key={waypoints.length + 1}
             index={waypoints.length + 1}
             location={destination}
             removeStop={removeStop}
