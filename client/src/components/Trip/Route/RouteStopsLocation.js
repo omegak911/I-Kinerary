@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Draggable } from 'react-beautiful-dnd';
 
-const RouteStopsLocation = ({ location, index }) =>
+const RouteStopsLocation = ({ location, index, removeStop }) =>
   <Draggable
     draggableId={`location.${index}`}
     index={index}
@@ -15,7 +15,12 @@ const RouteStopsLocation = ({ location, index }) =>
         isDragging={snapshot.isDragging}
         draggingOver={snapshot.draggingOver}
       >
-      {location}
+      <div>
+        {location}
+      </div>
+      <div onClick={() => removeStop(index)} title="remove stop">
+        X
+      </div>
       </StyledRouteStopsLocation>
     }
   </Draggable>

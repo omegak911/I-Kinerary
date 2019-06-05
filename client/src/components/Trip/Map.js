@@ -40,10 +40,20 @@ class Map extends Component {
       })
   }
 
-  handleMapLoad = ({ origin, destination, travelMode, waypoints }) => {
+  handleMapLoad = ({ 
+    destination,
+    origin,
+    travelMode,
+    waypoints
+  }) => {
     const directionsService = new google.maps.DirectionsService();
 
-    directionsService.route({ origin, destination, travelMode, waypoints }, (res, status) => {
+    directionsService.route({ 
+      destination,
+      origin,
+      travelMode,
+      waypoints
+    }, (res, status) => {
       if (status === 'OK') {
         this.setState({ directions: res });
       } else {
@@ -60,15 +70,28 @@ class Map extends Component {
         defaultCenter={ dummyCenter }
         defaultZoom={ 13 }
       >
-        {directions && <DirectionsRenderer directions={directions}/>}
+        {directions && 
+          <DirectionsRenderer 
+            directions={directions}
+          />
+        }
       </GoogleMap>
     ))
 
     return (
       <StyledMapWrapper>
         <GoogleMapContainer 
-          containerElement={ <div style={{ height: '60vh', width: '100%' }}/>}
-          mapElement={ <div style={{ height: '100%' }}/>}
+          containerElement={ 
+            <div style={{ 
+              height: '60vh', 
+              width: '100%' 
+            }}/>
+          }
+          mapElement={ 
+            <div style={{ 
+              height: '100%' 
+            }}/>
+          }
         />
       </StyledMapWrapper>
     )

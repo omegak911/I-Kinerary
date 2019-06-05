@@ -21,8 +21,17 @@ class Trip extends Component {
     let { selectedTripId } = this.props;
     axios
       .get(`/api/route?trip_id=${selectedTripId}`)
-      .then(({ data }) => this.setState({ route: data, routeLoaded: true }))
+      .then(({ data }) => 
+        this.setState({ 
+          route: data, 
+          routeLoaded: true 
+        })
+      )
       .catch(err => console.error(err));
+  }
+
+  addDestination = (destination) => { //always adds to the end
+
   }
 
   convertRouteObjectToArray = (routeObj) => {
@@ -55,6 +64,17 @@ class Trip extends Component {
     return routeObj;
   }
 
+  removeStop = (index) => { //need to test to ensure index matches
+    let route = {...this.state.route};
+    let routeArr = this.convertRouteObjectToArray(route);
+    routeArr.splice(index, 1);
+    route = this.seedArrayToRouteObject(routeArr, route);
+
+    this.setState({ showMap: false }, () => {
+      this.setState({ route, showMap: true });
+    });
+  }
+
   onDragEnd = (result) => {
     let { destination, source } = result;
 
@@ -72,7 +92,10 @@ class Trip extends Component {
 
   renderView = () => {
     let { route, routeLoaded, showMap } = this.state;
-    let map = showMap ? <Map route={route} /> : <div>Map Loading...</div>
+    // let map = showMap ? 
+    //   <Map route={route} /> 
+    //   : 
+    //   <div>Map Loading...</div>
 
     if (routeLoaded) {
       return (
@@ -81,8 +104,18 @@ class Trip extends Component {
         >
           <div>
             <StyledTripTop>
-              <RouteContainer route={route} />
-              {map}
+              <RouteContainer 
+                addDestination={this.addDestination}
+                removeStop={this.removeStop}
+                route={route}
+              />
+{/* {map} */}
+              <div style={{
+                width: '70%',
+                height: '60vh'
+              }}>
+{/*  */}
+              </div>
             </StyledTripTop>
             <Conversations />
           </div>
