@@ -15,21 +15,34 @@ const RouteStopsLocation = ({ location, index, removeStop }) =>
         isDragging={snapshot.isDragging}
         draggingOver={snapshot.draggingOver}
       >
-      <div>
+      <StyledLocationName>
         {location}
-      </div>
-      <div onClick={() => removeStop(index)} title="remove stop">
-        X
-      </div>
+      </StyledLocationName>
+      <StyledRemoveLocation onClick={() => removeStop(index)} title="remove stop">
+        ×
+      </StyledRemoveLocation>
       </StyledRouteStopsLocation>
     }
   </Draggable>
+
+const StyledRemoveLocation = styled.div`
+  display: none;
+  cursor: pointer;
+`;
 
 const StyledRouteStopsLocation = styled.div`
   border: 1px solid black;
   margin: 3px;
   padding: 3px;
   width: 97%;
+  display: flex;
+  &:hover ${StyledRemoveLocation} {
+    display: block;
+  }
+`;
+
+const StyledLocationName = styled.div`
+  width: 90%;
 `;
 
 export default RouteStopsLocation;
