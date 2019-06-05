@@ -18,14 +18,29 @@ class SearchPlaces extends Component {
     e.preventDefault();
     
     //query to Google Places API
-    let googlePlacesResults = [...this.state.googlePlacesResults, this.state.query];
+
+    // let googlePlacesResults = 'results from google places, format as needed'
+
+    let googlePlacesResults = [
+      ...this.state.googlePlacesResults, 
+      this.state.query
+    ];
     this.setState({ googlePlacesResults, query: '' });
+  }
+
+  addDestination = (e) => {
+    let { innerText } = e.target;
+
+    this.setState({ 
+      googlePlacesResults: [] }, 
+      () => this.props.addDestination(innerText)
+    );
   }
 
   render() {
     let { query, googlePlacesResults } = this.state;
     let results = googlePlacesResults.map((location, i) =>
-      <StyledRouteStopsLocation key={i}>
+      <StyledRouteStopsLocation key={i} onClick={this.addDestination}>
         {location}
       </StyledRouteStopsLocation>
     );

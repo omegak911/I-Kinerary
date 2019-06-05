@@ -31,7 +31,18 @@ class Trip extends Component {
   }
 
   addDestination = (destination) => { //always adds to the end
+    let route = { ...this.state.route };
+    // route.waypoints = [...route.waypoints]; //probably don't need a new array for waypoints as well
+    route.waypoints.push({
+      location: route.destination,
+      stopover: true
+    });
 
+    route.destination = destination;
+    // this.setState({ route });
+    this.setState({ showMap: false }, () => {
+      this.setState({ route, showMap: true });
+    })
   }
 
   convertRouteObjectToArray = (routeObj) => {
