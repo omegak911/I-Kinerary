@@ -1,31 +1,38 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 class SearchPlaces extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      queryPlace: '',
+      queryLocation: '',
       googlePlacesResults: []
     }
   }
 
   handleInput = (e) => {
-    this.setState({ query: e.target.value });
+    let { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   handleSubmission = (e) => {
     e.preventDefault();
     
     //query to Google Places API
-
+    let { queryPlace, queryLocation } = this.state;
+    axios
+      .get(`/api/google/places?query=${queryPlace} near ${queryLocation}`)
+      .then(data => console.log(data))
+      .catch(err => console.error(err));
     // let googlePlacesResults = 'results from google places, format as needed'
 
-    let googlePlacesResults = [
-      ...this.state.googlePlacesResults, 
-      this.state.query
-    ];
-    this.setState({ googlePlacesResults, query: '' });
+    // let googlePlacesResults = [
+    //   ...this.state.googlePlacesResults, 
+    //   this.state.query
+    // ];
+    // this.setState({ googlePlacesResults, queryPlace: '', queryLocation: '' });
   }
 
   addDestination = (e) => {
@@ -38,7 +45,7 @@ class SearchPlaces extends Component {
   }
 
   render() {
-    let { query, googlePlacesResults } = this.state;
+    let { queryPlace, queryLocation, googlePlacesResults } = this.state;
     let results = googlePlacesResults.map((location, i) =>
       <StyledRouteStopsLocation key={i} onClick={this.addDestination}>
         {location}
@@ -49,11 +56,22 @@ class SearchPlaces extends Component {
       <StyledForm 
         onSubmit={this.handleSubmission}
       >
-        <StyledInput 
+        <StyledInput
+          name="queryPlace"
           placeholder="add stop" 
-          value={query} 
+          value={queryPlace}
           onChange={this.handleInput}
         />
+        &nbsp;
+        <div>near</div>
+        &nbsp;
+        <StyledInput 
+          name="queryLocation"
+          placeholder="location" 
+          value={queryLocation}
+          onChange={this.handleInput}
+        />
+        <button type="submit">search</button>
         {results}
       </StyledForm>
     )
@@ -68,6 +86,7 @@ const StyledRouteStopsLocation = styled.div`
 `;
 
 const StyledForm = styled.form`
+  display: flex;
   width: 98%;
 `;
 
@@ -75,7 +94,7 @@ const StyledInput = styled.input`
   outline: none;
   border-style: none none inset none;
   padding: 3px;
-  width: 100%;
+  width: 40%;
 `;
 
 export default SearchPlaces;
