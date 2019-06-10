@@ -32,54 +32,20 @@ class Trip extends Component {
 
   addDestination = (destination) => { //always adds to the end
     let route = { ...this.state.route };
-    // route.waypoints = [...route.waypoints]; //probably don't need a new array for waypoints as well
-    route.waypoints.push({
-      location: route.destination,
-      stopover: true
-    });
-
-    route.destination = destination;
-    // this.setState({ route });
+    destination.stopover = true;
+    route.waypoints.push(destination);
+      
     this.setState({ showMap: false }, () => {
       this.setState({ route, showMap: true });
     })
   }
 
-  convertRouteObjectToArray = (routeObj) => {
-    let routeArr = [routeObj.origin]
-
-    for (let stop of routeObj.waypoints) {
-      routeArr.push(stop.location);
-    }
-    routeArr.push(routeObj.destination);
-
-    return routeArr;
-  }
-
-  seedArrayToRouteObject = (routeArr, routeObj) => {
-    let from = routeArr[0];
-    let waypoints = [];
-    let to = routeArr[routeArr.length - 1];
-
-    for (let i = 1; i < routeArr.length - 1; i++) {
-      waypoints.push({
-        location: routeArr[i],
-        stopover: true
-      });
-    }
-
-    routeObj.origin = from;
-    routeObj.waypoints = waypoints;
-    routeObj.destination = to;
-
-    return routeObj;
-  }
-
-  removeStop = (index) => { //need to test to ensure index matches
+  removeStop = (index) => { 
+    //need to test to see if directions API will work without a destination
+    //aka, only have 1
     let route = {...this.state.route};
-    let routeArr = this.convertRouteObjectToArray(route);
-    routeArr.splice(index, 1);
-    route = this.seedArrayToRouteObject(routeArr, route);
+    route.waypoints = [...route.waypoints];
+    route.waypoints.splice(index, 1);
 
     this.setState({ showMap: false }, () => {
       this.setState({ route, showMap: true });
@@ -92,9 +58,8 @@ class Trip extends Component {
     if (!destination || destination.index === source.index) return;
     
     let route = { ...this.state.route };
-    let routeArr = this.convertRouteObjectToArray(route);
-    routeArr.splice(destination.index, 0, routeArr.splice(source.index, 1)[0]);
-    route = this.seedArrayToRouteObject(routeArr, route);
+    route.waypoints = [...route.waypoints];
+    route.waypoints.splice(destination.index, 0, route.waypoints.splice(source.index, 1)[0]);
 
     this.setState({ showMap: false }, () => {
       this.setState({ route, showMap: true });
@@ -103,10 +68,10 @@ class Trip extends Component {
 
   renderView = () => {
     let { route, routeLoaded, showMap } = this.state;
-    // let map = showMap ? 
-    //   <Map route={route} /> 
-    //   : 
-    //   <div>Map Loading...</div>
+    let map = showMap ? 
+      <Map route={route} /> 
+      : 
+      <div>Map Loading...</div>
 
     if (routeLoaded) {
       return (
@@ -120,7 +85,7 @@ class Trip extends Component {
                 removeStop={this.removeStop}
                 route={route}
               />
-{/* {map} */}
+{map}
               <div style={{
                 width: '70%',
                 height: '60vh'
