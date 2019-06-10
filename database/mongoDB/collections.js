@@ -3,11 +3,15 @@ import mongoose from 'mongoose';
 
 const routeSchema = new mongoose.Schema({
   trip_id: Number,
-  origin: String,
-  destination: String,
   waypoints: [
     {
       location: String,
+      address: String,
+      rating: Number,
+      user_ratings_total: Number,
+      types: [{
+        type: String
+      }],
       stopover: Boolean
     }
   ],
