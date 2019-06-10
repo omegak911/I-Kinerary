@@ -8,7 +8,8 @@ class SearchPlaces extends Component {
     this.state = {
       queryPlace: '',
       queryLocation: '',
-      googlePlacesResults: []
+      googlePlacesResults: [],
+      // showing: 5
     }
   }
 
@@ -24,31 +25,45 @@ class SearchPlaces extends Component {
     let { queryPlace, queryLocation } = this.state;
     axios
       .get(`/api/google/places?query=${queryPlace} near ${queryLocation}`)
-      .then(data => console.log(data))
-      .catch(err => console.error(err));
-    // let googlePlacesResults = 'results from google places, format as needed'
+      .then(({ data }) => { 
+        let { results } = data;
+        let googlePlacesResults = [];
+        for (let result of results) {
+          let { 
+            name,
+            formatted_address,
+            rating,
+            user_ratings_total,
+            types
+          } = result;
 
-    // let googlePlacesResults = [
-    //   ...this.state.googlePlacesResults, 
-    //   this.state.query
-    // ];
-    // this.setState({ googlePlacesResults, queryPlace: '', queryLocation: '' });
+          googlePlacesResults.push({
+            location: name,
+            address: formatted_address,
+            rating,
+            user_ratings_total,
+            types
+          })
+        }
+
+        this.setState({ googlePlacesResults, queryPlace: '', queryLocation: '' });
+      })
+      .catch(err => console.error(err));
   }
 
-  addDestination = (e) => {
-    let { innerText } = e.target;
-
+  addDestination = (index) => {
+    let destination = this.state.googlePlacesResults[index];
     this.setState({ 
       googlePlacesResults: [] }, 
-      () => this.props.addDestination(innerText)
+      () => this.props.addDestination(destination)
     );
   }
 
   render() {
     let { queryPlace, queryLocation, googlePlacesResults } = this.state;
     let results = googlePlacesResults.map((location, i) =>
-      <StyledRouteStopsLocation key={i} onClick={this.addDestination}>
-        {location}
+      <StyledRouteStopsLocation key={i} onClick={() => this.addDestination(i)}>
+        {location.location}
       </StyledRouteStopsLocation>
     );
 
