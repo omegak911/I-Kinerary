@@ -11,15 +11,15 @@ const waypoints = ['Alhambra, CA', 'Santa Monica, CA', 'San Jose, CA', 'Flagstaf
 
 const createRoutes = () => {
   let routes = '';
-  routes += `trip_id\torigin\tdestination\twaypoints\ttravelMode\n`
+  routes += `trip_id\twaypoints\ttravelMode\n`
   for (let trip_id = 1; trip_id < entries + 1; trip_id++) {
     let randomIndexOne = Math.floor(Math.random() * 4);
     let randomIndexPlusOne = (randomIndexOne + 1) % 4;
     let origin = originsDestinations[randomIndexOne];
     let destination = originsDestinations[randomIndexPlusOne];
-    let waypoint = `${waypoints[randomIndexOne]}|${waypoints[randomIndexPlusOne]}|`
+    let waypoint = `${origin}|${waypoints[randomIndexOne]}|${waypoints[randomIndexPlusOne]}|${destination}|`
 
-    routes += `${trip_id}\t${origin}\t${destination}\t${waypoint}\tDRIVING\n`;
+    routes += `${trip_id}\t${waypoint}\tDRIVING\n`;
   }
   routeDir.write(routes);
 };

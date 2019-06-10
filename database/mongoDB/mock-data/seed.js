@@ -10,7 +10,14 @@ Route
       for (let key in waypointObj) {
         let letter = waypointObj[key];
         if (letter === '|') {
-          waypoints.push({ location, stopover: true });
+          waypoints.push({ 
+            location, 
+            address: location,
+            rating: Math.ceil(Math.random() * 5),
+            user_rating_total: Math.floor(Math.random * 5000),
+            types: ['mock', 'mock'],
+            stopover: true 
+          });
           location = '';
         } else {
           location += letter;
