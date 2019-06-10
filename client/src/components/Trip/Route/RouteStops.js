@@ -12,15 +12,14 @@ class RouteStops extends Component {
 
   render() {
     let { route, addDestination, removeStop } = this.props;
-    let { destination, origin, waypoints } = route;
-    let mappedWaypoints = waypoints.map((waypoint, i) =>
+    let mappedWaypoints = route.waypoints.map((waypoint, i) =>
       <RouteStopsLocation 
-        key={i + 1} index={i + 1}
+        key={i} index={i}
         location={waypoint.location}
         removeStop={removeStop}
       />
     );
-
+    
     return (
       <Droppable
         droppableId={route._id}
@@ -32,22 +31,7 @@ class RouteStops extends Component {
           {...provided.droppableProps}
           isDraggingOver={snapshot.isDraggingOver}
         >
-          <RouteStopsLocation
-            key={0}
-            index={0}
-            location={origin}
-            removeStop={removeStop}
-          />
-
           {mappedWaypoints}
-
-          <RouteStopsLocation
-            key={waypoints.length + 1}
-            index={waypoints.length + 1}
-            location={destination}
-            removeStop={removeStop}
-          />
-          
           {provided.placeholder}
           <SearchPlaces addDestination={addDestination}/>
         </StyledRouteStops>

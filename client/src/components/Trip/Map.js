@@ -15,29 +15,19 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    let { route } = this.props;
+    let route = { ...this.props.route };
+    let { waypoints } = route;
+
+    route.origin = waypoints[0].address //or location?  need to test with actual address
+    route.waypoints = waypoints.slice(1, waypoints.length - 1);
+    route.destination = waypoints[waypoints.length - 1].address //or location?
+
     route.waypoints = route.waypoints.map(stop => {
-      let { location, stopover } = stop;
-      return { location, stopover };
+      let { address, stopover } = stop;
+      return { location: address , stopover };
     })
+
     this.handleMapLoad(route);
-  }
-
-  getRouteData = () => {
-    axios
-      .get(`/api/trip?id=${1}`)
-      .then(({ data }) => {
-        let { route } = data;
-        delete route._id;
-        delete route.trip_id;
-        delete route.__v;
-        route.waypoints = route.waypoints.map(stop => {
-          let { location, stopover } = stop;
-          return { location, stopover };
-        })
-
-        this.handleMapLoad(route);
-      })
   }
 
   handleMapLoad = ({ 
