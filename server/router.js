@@ -13,7 +13,7 @@ router.route('/trip')
 
 router.route('/route')
   .get(getRoute)
-  .post(updateOrCreateRoute)
+  // .post(updateOrCreateRoute)
   .patch(updateOrCreateRoute);
 
 router.route('/google/places')
