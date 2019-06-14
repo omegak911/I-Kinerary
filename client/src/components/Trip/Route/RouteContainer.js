@@ -15,7 +15,7 @@ const RouteContainer = ({
       removeStop={removeStop}
       route={route}
     /> 
-    <div>Options</div>
+    <Options route={route}/>
   </StyledRouteContainer>
 
 const StyledRouteContainer = styled.div`
