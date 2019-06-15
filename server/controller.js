@@ -1,7 +1,7 @@
-import { createRouteHelper, getRouteHelper } from '../database/mongoDB/dbHelpers';
-import createTripHelper from '../database/mySQL/helpers/tripHelper';
-import { createUserHelper, getUserHelper } from '../database/mySQL/helpers/userHelper';
-import { createUserTripHelper } from '../database/mySQL/helpers/joinHelpers';
+import { createRouteHelper, getRouteHelper } from './database/mongoDB/dbHelpers';
+import createTripHelper from './database/mySQL/helpers/tripHelper';
+import { createUserHelper, getUserHelper } from './database/mySQL/helpers/userHelper';
+import { createUserTripHelper } from './database/mySQL/helpers/joinHelpers';
 
 const errorHandler = (err, res) => {
   console.error(err);
