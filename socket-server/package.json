@@ -6,50 +6,22 @@
   "author": "Kin Chan",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server/bin/entry.js --ignore 'client/'",
-    "build": "webpack -w",
-    "socket": "nodemon socket-server/bin/entry.js",
-    "create:mysql": "node database/mySQL/bin/create-entry.js",
-    "seed:mysql": "NODE_ENV=jest node database/mySQL/bin/seed-entry.js",
-    "create:mongo": "node database/mongoDB/bin/create-entry.js",
-    "seed:mongo": "node database/mongoDB/bin/seed-entry.js",
-    "test": "NODE_ENV=jest jest --detectOpenHandles --verbose=false --forceExit "
-  },
-  "dependencies": {
-    "@babel/core": "^7.4.4",
-    "axios": "^0.18.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.16.4",
-    "moment": "^2.24.0",
-    "mongoose": "^5.5.8",
-    "mysql": "^2.17.1",
-    "react": "^16.8.6",
-    "react-beautiful-dnd": "^11.0.3",
-    "react-clamp-lines": "^3.0.2",
-    "react-dom": "^16.8.6",
-    "react-google-maps": "^9.4.5",
-    "sequelize": "^5.8.6",
-    "styled-components": "^4.2.0"
+    "start": "nodemon bin/entry.js"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/core": "^7.4.4",
     "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.4.5",
     "@babel/register": "^7.4.4",
     "babel-loader": "^8.0.6",
-    "dotenv": "^8.0.0",
-    "jest": "^24.8.0",
-    "mysql2": "^1.6.5",
-    "nodemon": "^1.19.0",
-    "supertest": "^4.0.2",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "nodemon": "^1.19.0"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
+  },
+  "dependencies": {
+    "socket.io": "^2.2.0"
   }
 }
