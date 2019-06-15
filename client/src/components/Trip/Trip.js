@@ -86,12 +86,11 @@ class Trip extends Component {
                 route={route}
               />
 {map}
-              <div style={{
+              {/* <div style={{
                 width: '70%',
                 height: '60vh'
               }}>
-{/*  */}
-              </div>
+              </div> */}
             </StyledTripTop>
             <Conversations />
           </div>

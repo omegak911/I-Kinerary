@@ -15,7 +15,7 @@ const routeSchema = new mongoose.Schema({
       stopover: Boolean
     }
   ],
-  travelMode: String
+  travelMode: String //default DRIVING
 });
 
 const Route = mongoose.model('Route', routeSchema);
