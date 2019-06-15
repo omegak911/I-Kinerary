@@ -8,6 +8,7 @@
   "scripts": {
     "start": "nodemon server/bin/entry.js --ignore 'client/'",
     "build": "webpack -w",
+    "socket": "nodemon socket-server/bin/entry.js",
     "create:mysql": "node database/mySQL/bin/create-entry.js",
     "seed:mysql": "NODE_ENV=jest node database/mySQL/bin/seed-entry.js",
     "create:mongo": "node database/mongoDB/bin/create-entry.js",

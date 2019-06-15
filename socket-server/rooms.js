@@ -1,0 +1,1 @@
+//function to defined separate rooms
