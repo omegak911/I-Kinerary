@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
+import io from 'socket.io-client';
+import { SOCKET_URL } from '../../../config/config';
 
 import RouteContainer from './Route/RouteContainer';
 import Map from './Map';
@@ -13,7 +15,8 @@ class Trip extends Component {
     this.state = {
       route: null,
       routeLoaded: false,
-      showMap: true
+      showMap: true,
+      socket: null
     }
   }
 
@@ -24,10 +27,24 @@ class Trip extends Component {
       .then(({ data }) => 
         this.setState({ 
           route: data, 
-          routeLoaded: true 
+          routeLoaded: true,
+          socket: this.establishSocket(data._id)
         })
       )
       .catch(err => console.error(err));
+  }
+
+  establishSocket = async (roomId) => {
+    let socket = await io(SOCKET_URL, { query: {
+      roomId: roomId
+    }})
+
+    // socket.emit('client.updateRoute', 'test')    
+    await socket.on('server.updateRoute', () => {
+      console.log(`client received msg from server`)
+    })
+
+    return socket;
   }
 
   addDestination = (destination) => { //always adds to the end
