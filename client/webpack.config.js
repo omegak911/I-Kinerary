@@ -2,10 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './client/src/index.js',
+  entry: './src/index.js',
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, './client/dist/'),
+    path: path.resolve(__dirname, './dist/'),
     filename: 'bundle.js'
   },
   module: {
@@ -21,18 +21,11 @@ module.exports = {
           }
         }
       },
-      // {
-      //   test: /\.(scss|css)$/,
-      //   loaders: ['style-loader', 'css-loader'],
-      // },
       {
         test: /\.(png|svg|jpg|gif)$/,
         loaders: ['file-loader'], 
       }
     ]
-  },
-  node: {
-    fs: 'empty'
   },
   resolve: {
     extensions: ['.js', '.jsx']

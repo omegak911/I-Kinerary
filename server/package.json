@@ -1,0 +1,41 @@
+{
+  "name": "I-Kinerary-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/omegak911/I-Kinerary.git",
+  "author": "Kin Chan",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon bin/entry.js",
+    "test": "NODE_ENV=jest jest --detectOpenHandles --verbose=false --forceExit ",
+    "create:mysql": "node database/mySQL/bin/create-entry.js",
+    "seed:mysql": "NODE_ENV=jest node database/mySQL/bin/seed-entry.js",
+    "create:mongo": "node database/mongoDB/bin/create-entry.js",
+    "seed:mongo": "node database/mongoDB/bin/seed-entry.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.8",
+    "mysql": "^2.17.1",
+    "sequelize": "^5.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "dotenv": "^8.0.0",
+    "jest": "^24.8.0",
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.19.0",
+    "supertest": "^4.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}

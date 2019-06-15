@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import supertest from 'supertest';
 
-import app from '../server/index';
+import app from '../index';
 import { Trip, User } from '../database/mySQL/models/joinTable';
 import sql_connection from '../database/mySQL/index';
 import Route from '../database/mongoDB/collections';

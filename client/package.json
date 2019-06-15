@@ -1,0 +1,38 @@
+{
+  "name": "I-Kinerary-client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/omegak911/I-Kinerary.git",
+  "author": "Kin Chan",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack -w"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "moment": "^2.24.0",
+    "react": "^16.8.6",
+    "react-beautiful-dnd": "^11.0.3",
+    "react-clamp-lines": "^3.0.2",
+    "react-dom": "^16.8.6",
+    "react-google-maps": "^9.4.5",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}
