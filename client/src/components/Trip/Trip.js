@@ -28,30 +28,30 @@ class Trip extends Component {
         this.setState({ 
           route: data, 
           routeLoaded: true,
-          socket: this.establishSocket(data._id)
-        })
+          socket: io(SOCKET_URL, { query: {
+            roomId: data._id
+          }})
+        },
+        this.socketRouteChangeHandler)
       )
       .catch(err => console.error(err));
   }
 
-  establishSocket = async (roomId) => {
-    let socket = await io(SOCKET_URL, { query: {
-      roomId: roomId
-    }})
-
-    // socket.emit('client.updateRoute', 'test')    
-    await socket.on('server.updateRoute', () => {
+  socketRouteChangeHandler = () => {
+    this.state.socket.on('server.updateRoute', () => {
       console.log(`client received msg from server`)
     })
-
-    return socket;
   }
 
   addDestination = (destination) => { //always adds to the end
     let route = { ...this.state.route };
     destination.stopover = true;
     route.waypoints.push(destination);
-      
+
+    // 
+      this.state.socket.emit('client.updateRoute', 'test')
+    // 
+
     this.setState({ showMap: false }, () => {
       this.setState({ route, showMap: true });
     })
