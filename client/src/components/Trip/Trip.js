@@ -38,9 +38,15 @@ class Trip extends Component {
   }
 
   socketRouteChangeHandler = () => {
-    this.state.socket.on('server.updateRoute', () => {
-      console.log(`client received msg from server`)
+    this.state.socket.on('server.updateRoute', (route) => {
+      this.setState({ showMap: false }, () => {
+        this.setState({ route, showMap: true });
+      })
     })
+  }
+
+  updateRoute = (route) => {
+    this.state.socket.emit('client.updateRoute', route);
   }
 
   addDestination = (destination) => { //always adds to the end
@@ -48,25 +54,15 @@ class Trip extends Component {
     destination.stopover = true;
     route.waypoints.push(destination);
 
-    // 
-      this.state.socket.emit('client.updateRoute', 'test')
-    // 
-
-    this.setState({ showMap: false }, () => {
-      this.setState({ route, showMap: true });
-    })
+    this.updateRoute(route);
   }
 
-  removeStop = (index) => { 
-    //need to test to see if directions API will work without a destination
-    //aka, only have 1
+  removeStop = (index) => {
     let route = {...this.state.route};
     route.waypoints = [...route.waypoints];
     route.waypoints.splice(index, 1);
 
-    this.setState({ showMap: false }, () => {
-      this.setState({ route, showMap: true });
-    });
+    this.updateRoute(route);
   }
 
   onDragEnd = (result) => {
@@ -78,9 +74,7 @@ class Trip extends Component {
     route.waypoints = [...route.waypoints];
     route.waypoints.splice(destination.index, 0, route.waypoints.splice(source.index, 1)[0]);
 
-    this.setState({ showMap: false }, () => {
-      this.setState({ route, showMap: true });
-    })
+    this.updateRoute(route);
   }
 
   renderView = () => {
