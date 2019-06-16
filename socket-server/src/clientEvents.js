@@ -1,26 +1,18 @@
-// import {
-//   serverUpdateRoute,
-//   serverSendChat,
-//   serverSendComment
-// } from './serverEvents';
-
-import { serverUpdateRoute } from './serverEvents';
+import { 
+  serverUpdateRoute,
+  serverSendMessage
+} from './serverEvents';
 
 const clientUpdateRoute = ({ io, room }, payload) => {
   console.log('reached clientUpdateRoute');
   serverUpdateRoute(io, room, payload);
 }
 
-const clientSendChat = ({ io, room }, payload) => {
-  console.log('reached clientSendChat');
-}
-
-const clientSendComment = ({ io, room }, payload) => {
-  console.log('reached clientSendComment');
+const clientSendMessage = ({ io, room }, payload) => {
+  serverSendMessage(io, room, payload);
 }
 
 export default {
   'client.updateRoute': clientUpdateRoute,
-  'client.sendChat': clientSendChat,
-  'client.sendComment': clientSendComment
+  'client.sendMessage': clientSendMessage,
 };

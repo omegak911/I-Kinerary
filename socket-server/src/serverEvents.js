@@ -3,16 +3,13 @@ const serverUpdateRoute = (io, room, payload) => {
   io.to(room).emit('server.updateRoute', payload);
 }
 
-const serverSendChat = (io, room, payload) => {
+const serverSendMessage = (io, room, payload) => {
   console.log('reached serverSendChat');
+  io.to(room).emit('server.sendMessage', payload);
 }
 
-const serverSendComment = (io, room, payload) => {
-  console.log('reached serverSendComment');
-}
 
 export {
   serverUpdateRoute,
-  serverSendChat,
-  serverSendComment
+  serverSendMessage
 };
