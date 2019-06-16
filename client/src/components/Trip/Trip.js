@@ -82,7 +82,7 @@ class Trip extends Component {
   }
 
   renderView = () => {
-    let { route, routeLoaded, showMap } = this.state;
+    let { route, routeLoaded, showMap, socket } = this.state;
     let map = showMap ? 
       <Map route={route} /> 
       : 
@@ -107,7 +107,7 @@ class Trip extends Component {
               }}>
               </div> */}
             </StyledTripTop>
-            <Conversations />
+            <Conversations socket={socket} />
           </div>
         </DragDropContext>
       )
