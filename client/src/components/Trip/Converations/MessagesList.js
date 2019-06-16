@@ -1,16 +1,25 @@
 import React from 'react';
+import styled from 'styled-components';
 import MessagesListItem from './MessagesListItem';
 
-const ChatList = (props) => {
+const MessageList = (props) => {
   let messages = props.messages.map((message, i) =>
       <MessagesListItem key={i} message={message}/>
     );
+  messages.reverse();
 
   return (
-    <div>
+    <StyledMessageList>
       {messages}
-    </div>
+    </StyledMessageList>
   )
 }
 
-export default ChatList;
+const StyledMessageList = styled.div`
+  border: 1px solid black;
+  height: 100px;
+  overflow: scroll;
+  resize: vertical;
+`;
+
+export default MessageList;

@@ -3,11 +3,10 @@ import React from 'react';
 const MessagesListItem = ({ message }) =>
   <div>
     <div>
-      username: { message.username }
+    { message.username }: 
+    { ' ' + message.message }
     </div>
-    <div>
-      { message.message }
-    </div>
+    <hr/>
   </div>
 
 export default MessagesListItem;
