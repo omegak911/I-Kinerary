@@ -1,6 +1,6 @@
 const serverUpdateRoute = (io, room, payload) => {
   console.log('reached serverUpdateRoute');
-  io.emit('server.updateRoute', payload);
+  io.to(room).emit('server.updateRoute', payload);
 }
 
 const serverSendChat = (io, room, payload) => {

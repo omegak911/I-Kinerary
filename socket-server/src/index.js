@@ -8,8 +8,8 @@ const server = http.createServer();
 const io = SocketIO(server);
 
 io.on('connection', (client) => {
-  console.log('user is connected')
-  let room = 'test' //will be used later to separate rooms
+  let room = client.handshake.query.roomId;
+  client.join(room);
 
   Object.keys(clientEvents).forEach(event => {
     client.on(event, payload => {
@@ -23,5 +23,3 @@ io.on('connection', (client) => {
 })
 
 server.listen(PORT, () => console.log('socket IO server is operational'));
-
-//handshake
