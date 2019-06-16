@@ -28,7 +28,8 @@ Route
           trip_id: element.trip_id
         }, 
         { 
-          waypoints: waypoints 
+          waypoints: waypoints,
+          comments: []
         })
         .then(() => console.log('success'))
         .catch(err => { if (i === 0) console.log(err)});

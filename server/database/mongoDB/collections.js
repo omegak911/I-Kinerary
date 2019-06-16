@@ -15,6 +15,13 @@ const routeSchema = new mongoose.Schema({
       stopover: Boolean
     }
   ],
+  comments: [
+    {
+      message: String,
+      username: String,
+      timestamp: String
+    }
+  ],
   travelMode: String //default DRIVING
 });
 
