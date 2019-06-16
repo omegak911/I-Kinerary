@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ChatList from './ChatList';
+import MessagesList from './MessagesList';
 import Form from './Form';
 
 class Conversations extends Component {
@@ -31,15 +31,11 @@ class Conversations extends Component {
     this.setState({ showComments: !this.state.showComments })
   }
 
-  renderView = () => {
-    let { chats, comments, showComments } = this.state;
-    return showComments ? <div>Comments</div> : <ChatList chats={chats}/>
-  }
-
   render() {
     let { showComments } = this.state;
     let option = showComments ? 'Chats' : 'Comments';
     let type = showComments ? 'Comments' : 'Chats';
+    let messages = this.state[type.toLowerCase()];
 
     return (
       <div>
@@ -48,7 +44,7 @@ class Conversations extends Component {
           onClick={this.changeView}>
             Switch to: {option}
         </button>
-        {this.renderView()}
+        <MessagesList messages={messages}/>
         <Form sendMessage={this.sendMessage} type={type}/>
       </div>
     )
