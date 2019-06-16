@@ -1,3 +1,18 @@
-//receives information from clientEvents
+const serverUpdateRoute = (io, room, payload) => {
+  console.log('reached serverUpdateRoute');
+  io.emit('server.updateRoute', payload);
+}
 
-//emits to all listening clients
+const serverSendChat = (io, room, payload) => {
+  console.log('reached serverSendChat');
+}
+
+const serverSendComment = (io, room, payload) => {
+  console.log('reached serverSendComment');
+}
+
+export {
+  serverUpdateRoute,
+  serverSendChat,
+  serverSendComment
+};

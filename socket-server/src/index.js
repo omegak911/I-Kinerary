@@ -1,19 +1,20 @@
 import http from 'http';
 import SocketIO from 'socket.io';
 
+import clientEvents from './clientEvents';
+
 const PORT = 3009;
 const server = http.createServer();
 const io = SocketIO(server);
 
 io.on('connection', (client) => {
   console.log('user is connected')
+  let room = 'test' //will be used later to separate rooms
 
-  client.on('event', data => {
-    console.log(`client event data: ${data}`)
-  })
-
-  client.on('client.updateRoute', data => {
-    console.log(`client updateRoute: ${data}`)
+  Object.keys(clientEvents).forEach(event => {
+    client.on(event, payload => {
+      clientEvents[event]({ io, room }, payload);
+    })
   })
 
   client.on('disconnect', () => {
@@ -24,7 +25,3 @@ io.on('connection', (client) => {
 server.listen(PORT, () => console.log('socket IO server is operational'));
 
 //handshake
-//rooms
-
-
-//for loop to run events thru
