@@ -13,18 +13,26 @@ class Conversations extends Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.setState({ comments: this.props.comments });
     //set socket listeners for updating
     this.props.socket.on('server.sendMessage', ({ type, message, username }) => {
       type = type.toLowerCase();
-      console.log(`type: ${type}, username: ${username}, message: ${message}`)
       this.setState({ [type]: [...this.state[type], { message, username }] })
     })
   }
 
   sendMessage = (type, message) => {
+    let { socket, trip_id } = this.props;
     let username = 'default' //get this from props once LOGIn is set
-    this.props.socket.emit('client.sendMessage', { type, message, username });
+    socket.emit('client.sendMessage', 
+      { 
+        type, 
+        message, 
+        username,
+        timestamp: new Date(),
+        trip_id
+      });
   }
 
   changeView = () => {

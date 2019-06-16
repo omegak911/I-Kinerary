@@ -107,7 +107,7 @@ class Trip extends Component {
               }}>
               </div> */}
             </StyledTripTop>
-            <Conversations socket={socket} />
+            <Conversations socket={socket} trip_id={route.trip_id} comments={route.comments}/>
           </div>
         </DragDropContext>
       )

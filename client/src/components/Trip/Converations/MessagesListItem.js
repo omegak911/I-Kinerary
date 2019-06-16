@@ -3,7 +3,7 @@ import React from 'react';
 const MessagesListItem = ({ message }) =>
   <div>
     <div>
-      { message.username }
+      username: { message.username }
     </div>
     <div>
       { message.message }
