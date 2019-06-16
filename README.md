@@ -53,3 +53,9 @@
 ### Try it out!
 
   Try logging it with username 'Omegak911' and password 'ikinerary'.  Thanks for visiting!
+
+
+### TODOS/MVP+
+  - client Trip.js: when a user first logs into a trip, they won't have any unsaved changes from other users
+  - client Trip.js: show current # of users logged in
+  - client Options.js: button to optimize routes based on location.  Need to consider one-way and round trips
