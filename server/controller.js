@@ -47,4 +47,21 @@ const updateOrCreateRoute = (req, res) => {
     .catch(err => errorHandler(err,res));
 };
 
-export { createTrip, getRoute, updateOrCreateRoute, createUser, getUser };
+const createComment = (req, res) => {
+  let { trip_id, message, username, timestamp } = req.body;
+  let options = {
+    $push: {
+      comments: {
+        message,
+        username,
+        timestamp
+      }
+    }
+  }
+
+  createRouteHelper({ trip_id, options })
+    .then(() => res.status(201).send('success'))
+    .catch(err => errorHandler(err,res));
+}
+
+export { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, createComment };

@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser } from './controller';
+import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, createComment } from './controller';
 import getPlaces from './googleApiController';
 
 const router = express.Router();
@@ -10,6 +10,9 @@ router.route('/auth')
 
 router.route('/trip')
   .post(createTrip);
+
+router.route('/route/comments')
+  .post(createComment)
 
 router.route('/route')
   .get(getRoute)
