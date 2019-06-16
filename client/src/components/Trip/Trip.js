@@ -37,6 +37,10 @@ class Trip extends Component {
       .catch(err => console.error(err));
   }
 
+  componentWillUnmount() {
+    this.state.socket.close();
+  }
+
   socketRouteChangeHandler = () => {
     this.state.socket.on('server.updateRoute', (route) => {
       this.setState({ showMap: false }, () => {
