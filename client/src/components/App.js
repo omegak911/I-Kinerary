@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Landing from './Landing/index';
 import TripParentComponent from './Trip/TripParentComponent';
 
 class App extends Component {
@@ -7,7 +9,15 @@ class App extends Component {
     return (
       <div>
         Hello from App
-        <TripParentComponent />
+
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Landing} />
+            <Route path="/home" component={TripParentComponent} />
+          </Switch>
+        </Router>
+
+        {/* <TripParentComponent /> */}
       </div>
     )
   }
