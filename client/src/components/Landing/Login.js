@@ -1,8 +1,24 @@
 import React from 'react';
+import { GoogleLogin } from 'react-google-login';
+
+import { GOOGLE_OAUTH_KEY } from '../../../config/config';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isAuthenticated: false,
+      user: null,
+      token: ''
+    }
+  }
+
+  googleResponse = (res) => {
+    console.log(res)
+  }
+
+  onFailure = (err) => {
+    console.error(err);
   }
 
   render() {
@@ -15,7 +31,12 @@ class Login extends React.Component {
         </form>
         <hr/> */}
         <div>
-    
+          <GoogleLogin
+            clientId={GOOGLE_OAUTH_KEY}
+            buttonText="Login"
+            onSuccess={this.googleResponse}
+            onFailure={this.onFailure}
+          />
         </div>
         <div>
           Don't have an account?
