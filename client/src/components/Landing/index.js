@@ -23,7 +23,7 @@ class Landing extends Component {
           {/* probably display somethign else here depending on view type */}
           <div>App description/motto</div>
         </div>
-        <Authenticate toggleView={this.toggleView} view={this.state.view}/>
+        <Authenticate toggleView={this.toggleView} view={this.state.view} history={this.props.history}/>
       </div>
     )
   }

@@ -20,7 +20,15 @@ class Authenticate extends React.Component {
 
     axios
       .post(`/api/auth/${this.props.view}`, { email, token })
-      .then(data => console.log(data))
+      .then(({ data }) => {
+        console.log(data);
+        this.props.history.push({
+          pathname: '/home',
+          state: {
+            user: data //user object with email, username + trip array
+          }
+        });
+      })
       .catch(err => console.error(err))
     
   }
