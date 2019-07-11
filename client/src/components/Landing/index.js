@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Login from './Login';
-import Signup from './Signup';
+import Authenticate from './Authenticate';
 
 class Landing extends Component {
   constructor(props) {
@@ -16,21 +15,15 @@ class Landing extends Component {
     this.setState({ view });
   }
 
-  renderLoginSignUp = () => {
-    if (this.state.view === 'login') {
-      return <Login toggleView={this.toggleView}/>
-    }
-    return <Signup toggleView={this.toggleView}/>
-  }
-
   render() {
     return (
       <div>
         <div>
           <h3>Welcome</h3>
+          {/* probably display somethign else here depending on view type */}
           <div>App description/motto</div>
         </div>
-        {this.renderLoginSignUp()}
+        <Authenticate toggleView={this.toggleView} view={this.state.view}/>
       </div>
     )
   }
