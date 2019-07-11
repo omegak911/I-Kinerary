@@ -1,7 +1,7 @@
 import { User, Trip } from '../models/joinTable';
 
-const createUserHelper = ({ username }) =>
-  User.create({ username });
+const createUserHelper = ({ email }) =>
+  User.create({ username: email, email });
 
 const getUserHelper = ({ username }) =>
   User.findOne({ 
