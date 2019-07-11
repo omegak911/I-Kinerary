@@ -8,13 +8,13 @@ const errorHandler = (err, res) => {
   res.status(404).send('request failed');
 };
 
-const createUser = (req, res) => {
+const signup = (req, res) => {
   createUserHelper(req.body)
-    .then(() => res.status(200).send('success'))
+    .then(() => res.status(201).send('success'))
     .catch(err => errorHandler(err,res))
 };
 
-const getUser = (req, res) => {
+const login = (req, res) => {
   getUserHelper(req.query)
     .then(user => res.status(200).send(user)) //sends back user with all trips data
     .catch(err => errorHandler(err,res))
@@ -64,4 +64,4 @@ const createComment = (req, res) => {
     .catch(err => errorHandler(err,res));
 }
 
-export { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, createComment };
+export { createTrip, getRoute, updateOrCreateRoute, signup, login, createComment };
