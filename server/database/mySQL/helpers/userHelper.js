@@ -3,9 +3,9 @@ import { User, Trip } from '../models/joinTable';
 const createUserHelper = ({ email }) =>
   User.create({ username: email, email });
 
-const getUserHelper = ({ username }) =>
+const getUserHelper = ({ email }) =>
   User.findOne({ 
-    where: { username },
+    where: { email },
     include: [{
       model: Trip
     }],

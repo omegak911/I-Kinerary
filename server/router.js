@@ -1,12 +1,14 @@
 import express from 'express';
-import { createTrip, getRoute, updateOrCreateRoute, createUser, getUser, createComment } from './controller';
+import { createTrip, getRoute, updateOrCreateRoute, signup, login, createComment } from './controller';
 import getPlaces from './googleApiController';
 
 const router = express.Router();
 
-router.route('/auth')
-  .get(getUser)
-  .post(createUser);
+router.route('/auth/signup')
+  .post(signup);
+
+router.route('/auth/login')
+  .post(login)
 
 router.route('/trip')
   .post(createTrip);

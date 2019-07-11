@@ -15,7 +15,7 @@ const signup = (req, res) => {
 };
 
 const login = (req, res) => {
-  getUserHelper(req.query)
+  getUserHelper(req.body)
     .then(user => res.status(200).send(user)) //sends back user with all trips data
     .catch(err => errorHandler(err,res))
 };
