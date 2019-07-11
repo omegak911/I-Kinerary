@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 
 import TripListItem from './TripListItem';
 ;
@@ -13,13 +12,8 @@ class TripList extends Component {
   }
 
   componentDidMount() {
-    //AJAX request to get all trips based on userId, we can hardcode this for now until we do auth
-    //this should be done already from login
-    //but for MVP, we'll leave this here
-    axios
-      .get(`/api/auth?username=Omegak911`)
-      .then(({ data }) => this.setState({ trips: data.trips }))
-      .catch(() => console.log('err'));
+    let { trips } = this.props;
+    this.setState({ trips });
   }
 
   increasedDisplayedTrips = () => {

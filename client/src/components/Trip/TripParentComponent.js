@@ -12,15 +12,22 @@ class TripParentComponent extends Component {
     }
   }
 
+  componentDidMount() {
+    let { user } = this.props.location.state;//user data from Login/Signup
+  }
+
   handleViewChange = (view, selectedTripId) => {
     this.setState({ view, selectedTripId });
   }
 
   renderView = () => {
     let { selectedTripId, view } = this.state;
+    let { trips } = this.props.location.state.user;
+
     return view === 'tripList' ? 
       <TripList
         handleViewChange={ (tripId) => this.handleViewChange('trip', tripId) }
+        trips={trips}
       />
       : 
       <Trip
