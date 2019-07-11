@@ -10,10 +10,11 @@ const entries = 100;
 
 const createUsers = () => {
   let users = '';
-  users += `Omegak911\n`
+  users += `Omegak911\ttest@email.com\n`
   for (let i = 0; i < entries; i++) {
     let username = `Mock User #${i}`;
-    users += `${username}\n`;
+    let email = `user${i}.email.com`
+    users += `${username}\t${email}\n`;
   }
   userDir.write(users);
 };
