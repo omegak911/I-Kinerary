@@ -13,7 +13,7 @@ class TripParentComponent extends Component {
   }
 
   componentDidMount() {
-    let { user } = this.props.location.state;//user data from Login/Signup
+    let { user } = this.props;//user data from Login/Signup
   }
 
   handleViewChange = (view, selectedTripId) => {
@@ -22,7 +22,7 @@ class TripParentComponent extends Component {
 
   renderView = () => {
     let { selectedTripId, view } = this.state;
-    let { trips } = this.props.location.state.user;
+    let { trips } = this.props.user;
 
     return view === 'tripList' ? 
       <TripList

@@ -1,1 +1,0 @@
-//on load, sends AJAX request to see if sessions is still active, if not, then reject to Login
