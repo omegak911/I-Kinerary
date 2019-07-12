@@ -8,16 +8,12 @@ class App extends Component {
   render() {
     return (
       <div>
-        Hello from App
-
         <Router>
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/home" component={AuthHoC} />
           </Switch>
         </Router>
-
-        {/* <TripParentComponent /> */}
       </div>
     )
   }

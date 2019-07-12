@@ -7,7 +7,7 @@ class AuthHoC extends Component {
   componentDidMount() {
     let { state } = this.props.location;
     if (!state || !state.user) {
-      location.push('/login');
+      this.props.history.push('/');
     }
   }
 
