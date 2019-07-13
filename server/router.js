@@ -1,4 +1,6 @@
 import express from 'express';
+import passport from 'passport';
+
 import { createTrip, getRoute, updateOrCreateRoute, signup, login, createComment } from './controller';
 import getPlaces from './googleApiController';
 
@@ -8,13 +10,16 @@ router.route('/auth/signup')
   .post(signup);
 
 router.route('/auth/login')
-  .post(login)
+  .post(
+    passport.authenticate('google-token'),
+    login
+  );
 
 router.route('/trip')
   .post(createTrip);
 
 router.route('/route/comments')
-  .post(createComment)
+  .post(createComment);
 
 router.route('/route')
   .get(getRoute)

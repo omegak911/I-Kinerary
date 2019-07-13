@@ -1,12 +1,15 @@
 import express from 'express';
 import parser from 'body-parser';
 import path from 'path';
+import passport from 'passport';
 
 import router from './router';
+import './auth';
 
 const app = express();
 const port = 3005;
 
+app.use(passport.initialize());
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));

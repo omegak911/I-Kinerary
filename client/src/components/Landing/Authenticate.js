@@ -14,12 +14,10 @@ class Authenticate extends React.Component {
 
   googleResponse = (res) => {
     console.log(res)
-
-    let { email } = res.profileObj; //so we have a consistent userId
     let token = res.tokenObj;
 
     axios
-      .post(`/api/auth/${this.props.view}`, { email, token })
+      .post(`/api/auth/${this.props.view}`, token)
       .then(({ data }) => {
         console.log(data);
         this.props.history.push({
